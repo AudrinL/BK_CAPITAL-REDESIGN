@@ -1,7 +1,12 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { TrendingUp } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import { ensureGsapRegistered, useScrollReveal } from "@/lib/motion";
 
 const tickers = [
   { code: "BLR", value: "490" },
@@ -19,8 +24,35 @@ const tickers = [
 const chartBars = [38, 52, 44, 61, 55, 70, 64, 78, 72, 85];
 
 export default function MarketSection() {
+  const ref = useScrollReveal<HTMLElement>({ selector: ".reveal-item" });
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !chartRef.current) return;
+
+    ensureGsapRegistered();
+    const bars = chartRef.current.querySelectorAll<HTMLElement>(".chart-bar");
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        bars,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.05,
+          transformOrigin: "bottom",
+          scrollTrigger: { trigger: chartRef.current, start: "top 80%", once: true },
+        }
+      );
+    }, chartRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-[image:var(--gradient-dark)] py-24 sm:py-32">
+    <section className="bg-[image:var(--gradient-dark)] py-section-md" ref={ref}>
       <Container>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
           <div>
@@ -35,7 +67,7 @@ export default function MarketSection() {
               {tickers.map((t) => (
                 <div
                   key={t.code}
-                  className="rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-center backdrop-blur-sm"
+                  className="reveal-item rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-center backdrop-blur-sm transition-colors duration-300 hover:border-accent/40 hover:bg-white/10"
                 >
                   <div className="text-[11px] font-semibold tracking-wide text-white/50">
                     {t.code}
@@ -47,14 +79,14 @@ export default function MarketSection() {
               ))}
             </div>
 
-            <div className="mt-10">
+            <div className="reveal-item mt-10">
               <Button href="/publications/market-reports" variant="gold">
                 View Market Reports
               </Button>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+          <div className="reveal-item rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2 text-sm font-medium text-white/70">
                 <TrendingUp className="h-4 w-4 text-accent" />
@@ -64,11 +96,11 @@ export default function MarketSection() {
                 395.79
               </span>
             </div>
-            <div className="mt-8 flex h-40 items-end gap-2">
+            <div ref={chartRef} className="mt-8 flex h-40 items-end gap-2">
               {chartBars.map((h, i) => (
                 <div
                   key={i}
-                  className="flex-1 rounded-t-sm"
+                  className="chart-bar flex-1 rounded-t-sm"
                   style={{
                     height: `${h}%`,
                     background:

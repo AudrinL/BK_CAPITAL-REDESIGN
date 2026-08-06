@@ -1,13 +1,18 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import Placeholder from "@/components/ui/Placeholder";
 import { products } from "@/lib/content";
+import { useScrollReveal } from "@/lib/motion";
 
 export default function ProductsSection() {
+  const ref = useScrollReveal<HTMLElement>({ selector: ".reveal-item" });
+
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-section-md" ref={ref}>
       <Container>
         <SectionHeading
           eyebrow="Products"
@@ -19,13 +24,15 @@ export default function ProductsSection() {
           {products.map((product, i) => (
             <div
               key={product.slug}
-              className="group overflow-hidden rounded-3xl border border-border bg-surface-elevated"
+              className="reveal-item group overflow-hidden rounded-3xl border border-border bg-surface-elevated transition-all duration-300 ease-premium hover:-translate-y-1.5 hover:shadow-[var(--shadow-xl)]"
             >
               <div className="aspect-[16/9] overflow-hidden">
-                <Placeholder
-                  assetPath={`images/investment/${product.slug}.webp`}
-                  tone={i % 2 === 0 ? "primary" : "gold"}
-                />
+                <div className="h-full w-full transition-transform duration-700 ease-premium group-hover:scale-105">
+                  <Placeholder
+                    assetPath={`images/investment/${product.slug}.webp`}
+                    tone={i % 2 === 0 ? "primary" : "gold"}
+                  />
+                </div>
               </div>
               <div className="p-8">
                 <span className="text-xs font-semibold uppercase tracking-wider text-primary">
@@ -40,7 +47,7 @@ export default function ProductsSection() {
                 <div className="mt-6">
                   <Button href={`/products/${product.slug}`} variant="ghost" className="!px-0">
                     Discover {product.name.split(" ")[0]}
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:translate-x-1" />
                   </Button>
                 </div>
               </div>

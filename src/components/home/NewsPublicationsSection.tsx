@@ -1,7 +1,10 @@
+"use client";
+
 import { FileText, Newspaper, ArrowUpRight, Award } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import { useScrollReveal } from "@/lib/motion";
 
 const news = [
   {
@@ -40,8 +43,10 @@ const publications = [
 ];
 
 export default function NewsPublicationsSection() {
+  const ref = useScrollReveal<HTMLElement>({ selector: ".reveal-item" });
+
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-section-md" ref={ref}>
       <Container>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
           <div>
@@ -50,7 +55,7 @@ export default function NewsPublicationsSection() {
               {news.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-start gap-4 rounded-2xl border border-border bg-surface p-5"
+                  className="reveal-item group flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-md)]"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
                     <item.icon className="h-5 w-5" strokeWidth={1.75} />
@@ -68,7 +73,8 @@ export default function NewsPublicationsSection() {
             </ul>
             <div className="mt-6">
               <Button href="/news" variant="ghost" className="!px-0">
-                View all news <ArrowUpRight className="h-4 w-4" />
+                View all news{" "}
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:translate-x-1" />
               </Button>
             </div>
           </div>
@@ -79,7 +85,7 @@ export default function NewsPublicationsSection() {
               {publications.map((item) => (
                 <li
                   key={item.title}
-                  className="flex items-start gap-4 rounded-2xl border border-border bg-surface p-5"
+                  className="reveal-item group flex items-start gap-4 rounded-2xl border border-border bg-surface p-5 transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-md)]"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
                     <FileText className="h-5 w-5" strokeWidth={1.75} />
@@ -98,7 +104,8 @@ export default function NewsPublicationsSection() {
             </ul>
             <div className="mt-6">
               <Button href="/publications/market-reports" variant="ghost" className="!px-0">
-                View all publications <ArrowUpRight className="h-4 w-4" />
+                View all publications{" "}
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:translate-x-1" />
               </Button>
             </div>
           </div>

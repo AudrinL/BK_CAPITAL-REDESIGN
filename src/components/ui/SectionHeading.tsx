@@ -17,7 +17,7 @@ export default function SectionHeading({
     >
       {eyebrow && (
         <span
-          className={`mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] ${
+          className={`reveal-item mb-3 inline-block text-xs font-semibold uppercase tracking-wideish ${
             light ? "text-accent" : "text-primary"
           }`}
         >
@@ -25,7 +25,7 @@ export default function SectionHeading({
         </span>
       )}
       <h2
-        className={`font-display text-3xl font-semibold tracking-tight sm:text-4xl ${
+        className={`reveal-item text-fluid-h2 font-display font-semibold leading-[1.05] tracking-tightest ${
           light ? "text-white" : "text-foreground"
         }`}
       >
@@ -33,7 +33,7 @@ export default function SectionHeading({
       </h2>
       {description && (
         <p
-          className={`mt-4 text-base leading-relaxed ${
+          className={`reveal-item mt-4 text-fluid-body leading-relaxed ${
             light ? "text-white/70" : "text-muted"
           }`}
         >
