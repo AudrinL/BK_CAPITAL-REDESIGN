@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/*
+  BK Capital design tokens.
+  Base brand colors extracted from the live site (bkcapital.rw):
+    --primary   #004BA5  (brand blue, used for buttons/links/active states)
+    --accent    #EEBB13  (brand gold, used for hover states/highlights)
+    --secondary #2D3239  (dark neutral, used for secondary surfaces/footer)
+  Everything else below expands these into a full premium system.
+*/
+:root {
+  /* Brand core */
+  --primary: #004ba5;
+  --primary-hover: #003d87;
+  --primary-dark: #002a5c;
+  --primary-light: #e6eef9;
+  --secondary: #2d3239;
+  --accent: #eebb13;
+  --accent-hover: #d6a70f;
+
+  /* Neutrals / surfaces */
+  --background: #ffffff;
+  --surface: #f7f8fa;
+  --surface-elevated: #ffffff;
+  --border: #e2e5ea;
+  --muted: #6b7280;
+  --foreground: #14181f;
+
+  /* Semantic */
+  --success: #1a8f5e;
+  --warning: #b8790a;
+  --danger: #c22a2a;
+  --info: #0b6bcb;
+
+  /* Data visualization palette (ordered, colorblind-considerate) */
+  --chart-1: #004ba5;
+  --chart-2: #eebb13;
+  --chart-3: #1a8f5e;
+  --chart-4: #7c5cd4;
+  --chart-5: #c22a2a;
+  --chart-6: #0b6bcb;
+  --chart-7: #2d3239;
+  --chart-8: #d6a70f;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #003d87 0%, #004ba5 45%, #0a63c9 100%);
+  --gradient-dark: linear-gradient(180deg, #14181f 0%, #2d3239 100%);
+  --gradient-gold: linear-gradient(135deg, #d6a70f 0%, #eebb13 60%, #f5d670 100%);
+  --gradient-mesh: radial-gradient(60% 60% at 20% 20%, rgba(0, 75, 165, 0.25) 0%, rgba(0, 75, 165, 0) 60%),
+    radial-gradient(50% 50% at 85% 30%, rgba(238, 187, 19, 0.18) 0%, rgba(238, 187, 19, 0) 60%);
+
+  /* Glass surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-bg-light: rgba(20, 24, 31, 0.04);
+  --glass-border-light: rgba(20, 24, 31, 0.08);
+
+  /* Shadows */
+  --shadow-color: 220 30% 10%;
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.06);
+  --shadow-md: 0 4px 16px hsl(var(--shadow-color) / 0.08);
+  --shadow-lg: 0 12px 32px hsl(var(--shadow-color) / 0.12);
+  --shadow-xl: 0 24px 64px hsl(var(--shadow-color) / 0.16);
+
+  /* Focus ring */
+  --focus-ring: #eebb13;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-foreground: var(--foreground);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-poppins);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
